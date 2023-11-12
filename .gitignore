@@ -1,0 +1,7 @@
+build/
+temp/
+.vscode
+
+*.exe
+testData.csv
+
