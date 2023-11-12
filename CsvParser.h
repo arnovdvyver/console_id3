@@ -8,6 +8,7 @@ class CsvParser {
         std::vector<std::string> getHeaders();
         std::vector<std::vector<std::string>> getData();
         std::map<std::string, std::vector<std::string>> parseAttributes();
+        bool validTarget(std::string target);
 
     private:
         std::string file;

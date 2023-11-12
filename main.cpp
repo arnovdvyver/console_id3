@@ -1,24 +1,27 @@
 #include <iostream>
 #include <string>
+#include <filesystem>
 #include "CsvParser.h"
 
 int main(int argc, char *argv[])
 {
-    //provide 2 argument 
-    //1.) link to dataset 
-    //2.) target variable for decision tree
-
-    CsvParser myParser("testData.csv");
-    std::vector<std::string> headers = myParser.getHeaders();
-    std::map<std::string, std::vector<std::string>> fixedData = myParser.parseAttributes();
-
-
-    for (std::string att : headers) {
-        std::cout << att << " ==> ";
-        for (int i = 0; i < fixedData[att].size(); i++) {
-            std::cout << fixedData[att].at(i) << ", ";
-        }
-        std::cout << '\n';
+    if (argc < 2) {
+        std::cout << "MISSING ARGUMENT(S): expected 2, found " << (argc - 1) << '\n';
+        return 1;
     }
+
+    std::string filePath = argv[1];
+    if (!std::filesystem::exists(filePath)) {
+        std::cout << "No file found at: " << filePath << std::endl;
+        return 1;
+    }
+
+    CsvParser parser(filePath);
+    std::string targetAttribute = argv[2];
+    if (parser.validTarget(targetAttribute)) {
+        std::cout << "INVALID TARGET: target attribute not part of headers. " << (argc - 1) << '\n';
+        return 1;
+    }
+
     return 0;
 };

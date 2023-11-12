@@ -68,3 +68,13 @@ std::map<std::string, std::vector<std::string>> CsvParser::parseAttributes() {
     }
     return output;
 }
+
+bool CsvParser::validTarget(std::string target) {
+    for (std::string header : getHeaders()) {
+        //need to make matching for all case types here
+        if (header == target) {
+            return true;
+        }
+    }
+    return false;
+}
