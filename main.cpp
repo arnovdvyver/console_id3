@@ -9,9 +9,16 @@ int main(int argc, char *argv[])
     //2.) target variable for decision tree
 
     CsvParser myParser("testData.csv");
-    myParser.getHeaders();
+    std::vector<std::string> headers = myParser.getHeaders();
+    std::map<std::string, std::vector<std::string>> fixedData = myParser.parseAttributes();
 
 
-
+    for (std::string att : headers) {
+        std::cout << att << " ==> ";
+        for (int i = 0; i < fixedData[att].size(); i++) {
+            std::cout << fixedData[att].at(i) << ", ";
+        }
+        std::cout << '\n';
+    }
     return 0;
 };
